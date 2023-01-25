@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "Controller.js" as Controller
 
 Rectangle {
+    id:cell
     property int size: Controller.cellSize
     property int col: 0
     property int row: 0
@@ -22,5 +23,15 @@ Rectangle {
     MouseArea{
         anchors.fill: parent
         onClicked: Controller.step(parent)
+    }
+    Component.onCompleted: {
+//        window.update.connect(Controller.show(cell, Controller.currentShow))
+    }
+    Connections {
+     target: window
+     ignoreUnknownSignals: true
+     function onUpdate(){
+         Controller.show(cell, Controller.currentShow)
+     }
     }
 }

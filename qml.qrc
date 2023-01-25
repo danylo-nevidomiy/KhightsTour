@@ -4,5 +4,6 @@
         <file>Controller.js</file>
         <file>Board.qml</file>
         <file>Cell.qml</file>
+        <file>Button.qml</file>
     </qresource>
 </RCC>

@@ -33,7 +33,7 @@ Horse::~Horse()
 
 void Horse::drawField()
 {
-    drawPath(field);
+//    drawPath(field);
 }
 
 void Horse::find()
@@ -57,13 +57,13 @@ void Horse::draw()
     std::cout << "Count = " << results.size() <<std::endl;
 }
 
-void Horse::drawPath(int **path)
+void Horse::drawPath(std::vector<int> path)
 {
     std::cout << "||||||||||||||||||||||||||||||||||||||||||" <<std::endl;
     for(int i=0;i<size;i++){
         std::cout << "[ ";
         for(int j=0;j<size;j++){
-            std::cout << path[i][j] << "\t ";
+            std::cout << path.at(index(i, j)) << "\t ";
         }
         std::cout << "]" << std::endl;
     }
@@ -78,6 +78,25 @@ int Horse::getSize() const
 void Horse::setSize(int size)
 {
     this->size = size;
+}
+
+std::vector<int> Horse::getResult(int index) const
+{
+    return results.at(index);
+}
+
+int Horse::appendCurrentResult()
+{
+    if(currentResult<results.size()){
+        return ++currentResult;
+    }
+}
+
+int Horse::deductCurrentResult()
+{
+    if(currentResult>0){
+        return --currentResult;
+    }
 }
 
 void Horse::setStart(std::pair<int, int> start)
@@ -140,14 +159,15 @@ std::vector<std::pair<int, int> > Horse::getSteps(std::pair<int, int> point)
 
 void Horse::saveResult(int** result)
 {
+    std::vector<int> answer;
     int** array = new int*[size];
     for(int i=0;i<size;i++){
         array[i] = new int[size]{0};
         for(int j=0;j<size;j++){
-            array[i][j] = result[i][j];
+            answer.push_back(result[i][j]);
         }
     }
-    results.push_back(array);
+    results.push_back(answer);
 }
 
 bool Horse::isCellFree(std::pair<int, int> point)

@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     Horse horse;
+//    horse.find();
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("horse", &horse);
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));

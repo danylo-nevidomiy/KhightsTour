@@ -2,7 +2,8 @@ QT += quick
 
 SOURCES += \
     horse.cpp \
-    main.cpp
+    main.cpp \
+    toursagregator.cpp
 
 resources.files = main.qml 
 resources.prefix = /$${TARGET}
@@ -21,4 +22,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    horse.h
+    horse.h \
+    toursagregator.h
