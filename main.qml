@@ -14,11 +14,32 @@ Window {
     minimumHeight: 480
     signal update()
     title: qsTr("Knight's tour")
+    property bool hasNextResult: false
+    property bool hasPrevResult: false
+    property int current: 0
     Board{
 
     }
-    Component.onCompleted: {
-
+    Connections {
+     target: agregator
+//     ignoreUnknownSignals: true
+     function onHasNextResultChanged(state){
+         window.hasNextResult = state;
+     }
+    }
+    Connections {
+     target: agregator
+//     ignoreUnknownSignals: true
+     function onHasPrevResultChanged(state){
+         window.hasPrevResult = state;
+     }
+    }
+    Connections {
+     target: agregator
+//     ignoreUnknownSignals: true
+     function onCurrentChanged(cur){
+         window.current = cur;
+     }
     }
     Row {
         height: 32
@@ -30,7 +51,9 @@ Window {
         Button {
             height: parent.height
             caption: qsTr("Find")
-            onClicked: Controller.find();
+            onClicked: {
+                Controller.find();
+            }
 //            visible: !canvas.playingState
         }
 
@@ -41,12 +64,6 @@ Window {
 //            visible: !canvas.playingState
         }
 
-        Button {
-            height: parent.height
-            caption: qsTr("Stop")
-            onClicked: Controller.stop();
-//            visible: canvas.playingState
-        }
 
         Button {
             height: parent.height
@@ -57,6 +74,7 @@ Window {
 
 
         Button {
+            id:prev
             height: parent.height
             caption: qsTr("Prev")
             onClicked: {
@@ -64,10 +82,19 @@ Window {
                 window.update();
             }
 //            visible: canvas.historyState
-            enabled: canvas.hasPrevMove
+            enabled: window.hasPrevResult
         }
 
+        Counter {
+            height: parent.height
+            caption: current
+//            onClicked: Controller.stop();
+//            visible: canvas.playingState
+        }
+
+
         Button {
+            id:next
             height: parent.height
             caption: qsTr("Next")
             onClicked: {
@@ -75,7 +102,7 @@ Window {
                 window.update();
             }
 //            visible: canvas.historyState
-            enabled: canvas.hasNextMove
+            enabled: window.hasNextResult
         }
     }
 }

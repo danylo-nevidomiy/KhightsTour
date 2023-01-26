@@ -36,24 +36,46 @@ int ToursAgregator::getResultsValueAt(const int index) const
 int ToursAgregator::nextResult()
 {
     if(current<tour->getResultsCount()){
-        current++;
+        emit currentChanged(++current+1);
         currentResult = tour->getResult(current);
     }
+    updateCurrentStates();
     return current;
 }
 
 int ToursAgregator::prevResult()
 {
     if(current>0){
-        current--;
+        emit currentChanged(--current+1);
         currentResult = tour->getResult(current);
     }
+    updateCurrentStates();
     return current;
+}
+
+bool ToursAgregator::hasNextResult() const
+{
+    if(current<tour->getResultsCount()){
+        return true;
+    }
+    return false;
+}
+
+bool ToursAgregator::hasPrevResult() const
+{
+    if(current>0){
+        return true;
+    }
+    return false;
 }
 
 void ToursAgregator::find()
 {
     tour->pathFinder(start, 1);
+    current = 0;
+    emit currentChanged(current+1);
+    updateCurrentStates();
+
 }
 
 int ToursAgregator::getSize() const
@@ -64,4 +86,18 @@ int ToursAgregator::getSize() const
 void ToursAgregator::setSize(int newSize)
 {
     tour->setSize(newSize);
+}
+
+void ToursAgregator::updateCurrentStates()
+{
+    if(hasNextResult()){
+        emit hasNextResultChanged(true);
+    }else{
+        emit hasNextResultChanged(false);
+    }
+    if(hasPrevResult()){
+        emit hasPrevResultChanged(true);
+    }else{
+        emit hasPrevResultChanged(false);
+    }
 }

@@ -20,13 +20,19 @@ public:
     Q_INVOKABLE int getResultsValueAt(const int index) const;
     Q_INVOKABLE int nextResult();
     Q_INVOKABLE int prevResult();
+    Q_INVOKABLE bool hasNextResult() const;
+    Q_INVOKABLE bool hasPrevResult() const;
     Q_INVOKABLE void find();
     Q_INVOKABLE int getSize() const;
     Q_INVOKABLE void setSize(int newSize);
+    void updateCurrentStates();
     const std::pair<int, int> &getStart() const;
     void setStart(const std::pair<int, int> &newStart);
 signals:
     void startChanged();
+    void currentChanged(int);
+    void hasNextResultChanged(bool);
+    void hasPrevResultChanged(bool);
 };
 
 #endif // TOURSAGREGATOR_H
