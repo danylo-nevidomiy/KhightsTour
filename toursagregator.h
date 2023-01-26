@@ -15,6 +15,7 @@ class ToursAgregator : public QObject
 
 public:
     ToursAgregator();
+    ToursAgregator(int n);
     ~ToursAgregator();
     Q_INVOKABLE int getResultsCount() const;
     Q_INVOKABLE int getResultsValueAt(const int index) const;
@@ -33,6 +34,7 @@ signals:
     void currentChanged(int);
     void hasNextResultChanged(bool);
     void hasPrevResultChanged(bool);
+    void resultCountChanged(int);
 };
 
 #endif // TOURSAGREGATOR_H

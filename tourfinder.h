@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+//#include <QPromise>
+
 class TourFinder
 {
     int **field;
@@ -25,6 +27,7 @@ public:
     inline int getResultsCount() const{
         return results.size();
     };
+//    void pathFinder(QPromise<std::vector<int>> &promise, std::pair<int, int> current, int number);
     void pathFinder(std::pair<int, int> current, int number);
 
 };

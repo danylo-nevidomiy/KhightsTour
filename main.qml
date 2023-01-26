@@ -17,6 +17,7 @@ Window {
     property bool hasNextResult: false
     property bool hasPrevResult: false
     property int current: 0
+    property int count: 0
     Board{
 
     }
@@ -39,6 +40,13 @@ Window {
 //     ignoreUnknownSignals: true
      function onCurrentChanged(cur){
          window.current = cur;
+     }
+    }
+    Connections {
+     target: agregator
+//     ignoreUnknownSignals: true
+     function onResultCountChanged(c){
+         window.count = c;
      }
     }
     Row {
@@ -87,7 +95,7 @@ Window {
 
         Counter {
             height: parent.height
-            caption: current
+            caption: current + "/" + count
 //            onClicked: Controller.stop();
 //            visible: canvas.playingState
         }

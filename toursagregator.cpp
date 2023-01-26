@@ -18,6 +18,11 @@ ToursAgregator::ToursAgregator()
     tour = new TourFinder();
 }
 
+ToursAgregator::ToursAgregator(int n)
+{
+    tour = new TourFinder(n);
+}
+
 ToursAgregator::~ToursAgregator()
 {
     delete tour;
@@ -71,7 +76,9 @@ bool ToursAgregator::hasPrevResult() const
 
 void ToursAgregator::find()
 {
+
     tour->pathFinder(start, 1);
+    emit resultCountChanged(tour->getResultsCount());
     current = 0;
     emit currentChanged(current+1);
     updateCurrentStates();

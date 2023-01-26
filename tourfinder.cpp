@@ -16,6 +16,7 @@ std::vector<int> TourFinder::getResult(int index) const
     return results.at(index);
 }
 
+//void TourFinder::pathFinder(QPromise<std::vector<int>> &promise, std::pair<int, int> current, int number)
 void TourFinder::pathFinder(std::pair<int, int> current, int number)
 {
     if(number == cellsCount){
