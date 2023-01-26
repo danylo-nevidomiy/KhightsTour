@@ -1,8 +1,8 @@
 QT += quick
 
 SOURCES += \
-    horse.cpp \
     main.cpp \
+    tourfinder.cpp \
     toursagregator.cpp
 
 resources.files = main.qml 
@@ -22,5 +22,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    horse.h \
+    tourfinder.h \
     toursagregator.h

@@ -3,7 +3,7 @@ var windowWidth = 480;
 var windowHeight = 480;
 var boardWidth = (windowWidth>windowHeight ? windowHeight : windowWidth)*0.8;
 var boardHeight = boardWidth;
-var count = horse.getSize();
+var count = agregator.getSize();
 var cellSize = boardWidth/count;
 var cell = Qt.createComponent("Cell.qml");
 var cells = new Array(count*count);
@@ -28,7 +28,7 @@ function step(cellItem){
 }
 
 function find(){
-    horse.find();
+    agregator.find();
 }
 
 function load(){
@@ -36,10 +36,10 @@ function load(){
     c.color = "black";
 }
 function prev(){
-    horse.deductCurrentResult();
+    agregator.prevResult();
 }
 function next(){
-    horse.appendCurrentResult();
+    agregator.nextResult();
 }
 
 function show(item, index){
@@ -53,7 +53,7 @@ function show(item, index){
 //    if(item.row == 0 && item.col == 0){
 //        currentSHow++;
 //    }
-        item.number = horse.getResultsValueAt(horse.getCurrentResult(), indexForCell(item.row, item.col));
+        item.number = agregator.getResultsValueAt(indexForCell(item.row, item.col));
 //        item.number = currentResult[indexForCell(item.row, item.col)];
 //    }else{
 //        console.log(null);
