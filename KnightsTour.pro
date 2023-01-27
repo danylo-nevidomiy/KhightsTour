@@ -2,6 +2,7 @@ QT += quick
 
 SOURCES += \
     main.cpp \
+    queuedispatcher.cpp \
     tourfinder.cpp \
     toursagregator.cpp
 
@@ -22,5 +23,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    queuedispatcher.h \
     tourfinder.h \
     toursagregator.h

@@ -2,7 +2,9 @@
 #define TOURSAGREGATOR_H
 
 #include <QObject>
+
 #include "tourfinder.h"
+#include "queuedispatcher.h"
 
 class ToursAgregator : public QObject
 {
@@ -11,6 +13,7 @@ class ToursAgregator : public QObject
     int current = 0;
     std::vector<int> currentResult;
     std::pair<int, int> start = {0,0};
+    QueueDispatcher dispatcher;
     Q_PROPERTY(std::pair<int, int> start READ getStart WRITE setStart NOTIFY startChanged)
 
 public:

@@ -13,10 +13,7 @@ void ToursAgregator::setStart(const std::pair<int, int> &newStart)
     emit startChanged();
 }
 
-ToursAgregator::ToursAgregator()
-{
-    tour = new TourFinder();
-}
+ToursAgregator::ToursAgregator() : ToursAgregator(5){}
 
 ToursAgregator::ToursAgregator(int n)
 {
@@ -76,7 +73,13 @@ bool ToursAgregator::hasPrevResult() const
 
 void ToursAgregator::find()
 {
-
+//    QueueDispatcher& d = dispatcher;
+//    TourFinder& t = *tour;
+//    ResultHandler handler = [&d, &t](std::vector<int> res){
+//        d.dispatchNow([&t](std::vector<int> result){
+//            t.saveResultNow(result);
+//        });
+//    };
     tour->pathFinder(start, 1);
     emit resultCountChanged(tour->getResultsCount());
     current = 0;

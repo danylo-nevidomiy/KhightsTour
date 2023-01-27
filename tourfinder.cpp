@@ -17,6 +17,27 @@ std::vector<int> TourFinder::getResult(int index) const
 }
 
 //void TourFinder::pathFinder(QPromise<std::vector<int>> &promise, std::pair<int, int> current, int number)
+//void TourFinder::pathFinder(ResultHandler handler, std::pair<int, int> current, int number)
+
+//void TourFinder::pathFinder(std::pair<int, int> current, int number){
+//    if(number == cellsCount){
+//        field[current.first][current.second] = number;
+//        saveResult(field);
+////        handler(saveResult(field));
+//        field[current.first][current.second] = 0;
+//        std::cout << "Count = " << results.size() <<std::endl;
+//        return;
+//    }
+//    auto steps = getSteps(current);
+//    if(steps.size() == 0){
+//        return;
+//    }
+//    field[current.first][current.second] = number;
+//    for(auto i : steps){
+//        pathFinder({i.first, i.second}, number+1);
+//    }
+//    field[current.first][current.second] = 0;
+//}
 void TourFinder::pathFinder(std::pair<int, int> current, int number)
 {
     if(number == cellsCount){
@@ -71,14 +92,18 @@ bool TourFinder::isCellFree(std::pair<int, int> point)
 void TourFinder::saveResult(int** result)
 {
     std::vector<int> answer;
-    int** array = new int*[size];
     for(int i=0;i<size;i++){
-        array[i] = new int[size]{0};
         for(int j=0;j<size;j++){
             answer.push_back(result[i][j]);
         }
     }
     results.push_back(answer);
+}
+
+void TourFinder::saveResultNow(std::vector<int> res)
+{
+    results.push_back(res);
+//    emit resultCountChanged(results.size());
 }
 
 TourFinder::TourFinder() : TourFinder(5){}
