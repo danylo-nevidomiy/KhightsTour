@@ -1,7 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.1
-//import QtQuick.Controls
+import QtQuick.Controls
 
 import "Controller.js" as Controller
 
@@ -19,7 +19,7 @@ Window {
     property int current: 0
     property int count: 0
     Board{
-
+        id:board
     }
     Connections {
      target: agregator
@@ -49,6 +49,14 @@ Window {
          window.count = c;
      }
     }
+    Connections {
+     target: agregator
+//     ignoreUnknownSignals: true
+     function onSizeChanged(size){
+         Controller.count = size;
+         Controller.reCreateCells(board);
+     }
+    }
     Row {
         height: 32
         anchors.right: parent.right
@@ -56,32 +64,60 @@ Window {
         anchors.margins: 8
         spacing: 8
 
-        Button {
+        MenuBar{
             height: parent.height
-            caption: qsTr("Find")
-            onClicked: {
-                Controller.find();
-            }
-//            visible: !canvas.playingState
+            width: 100
+        Menu{
+            width: 100
+        title: qsTr("&Count")
+        Action {
+            text: qsTr("5")
+            onTriggered: agregator.setSize(5);
+        }
+        Action {
+            text: qsTr("6")
+            onTriggered: agregator.setSize(6);
+        }
+        Action {
+            text: qsTr("7")
+            onTriggered: agregator.setSize(7);
+        }
+        }
         }
 
-        Button {
+//        Rectangle{
+//        TextEdit{
+//            height: parent.height
+//            anchors.centerIn:  parent
+//            width:50
+//            text: "count"
+//        }
+//        }
+
+        CustomButton {
             height: parent.height
             caption: qsTr("Load")
             onClicked: Controller.load();
 //            visible: !canvas.playingState
         }
 
-
-        Button {
+        CustomButton {
             height: parent.height
             caption: qsTr("Save")
             onClicked: Controller.save();
 //            visible: canvas.playingState
         }
 
+        CustomButton {
+            height: parent.height
+            caption: qsTr("Find")
+            onClicked: {
+                Controller.find();
+            }
+            visible: true
+        }
 
-        Button {
+        CustomButton {
             id:prev
             height: parent.height
             caption: qsTr("Prev")
@@ -93,7 +129,7 @@ Window {
             enabled: window.hasPrevResult
         }
 
-        Counter {
+        InfoField {
             height: parent.height
             caption: current + "/" + count
 //            onClicked: Controller.stop();
@@ -101,7 +137,7 @@ Window {
         }
 
 
-        Button {
+        CustomButton {
             id:next
             height: parent.height
             caption: qsTr("Next")

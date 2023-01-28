@@ -32,12 +32,14 @@ public:
     void updateCurrentStates();
     const std::pair<int, int> &getStart() const;
     void setStart(const std::pair<int, int> &newStart);
+    void takeStep() const;
 signals:
     void startChanged();
     void currentChanged(int);
     void hasNextResultChanged(bool);
     void hasPrevResultChanged(bool);
     void resultCountChanged(int);
+    void sizeChanged(int);
 };
 
 #endif // TOURSAGREGATOR_H

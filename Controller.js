@@ -23,7 +23,21 @@ function createCells(board) {
     }
 }
 
+function destroyCells() {
+    for(var i = 0; i < cells.length; i++) {
+        cells[i].destroy();
+    }
+
+    cells = new Array(count*count);
+}
+
+function reCreateCells(board){
+//    destroyCells();
+    createCells(board);
+}
+
 function step(cellItem){
+
     cellItem.number = cur++;
 }
 
@@ -32,8 +46,7 @@ function find(){
 }
 
 function load(){
-    var c = cells[0];
-    c.color = "black";
+    console.log("loading...");
 }
 function prev(){
     agregator.prevResult();

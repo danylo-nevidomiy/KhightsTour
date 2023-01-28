@@ -96,6 +96,7 @@ int ToursAgregator::getSize() const
 void ToursAgregator::setSize(int newSize)
 {
     tour->setSize(newSize);
+    emit sizeChanged(newSize);
 }
 
 void ToursAgregator::updateCurrentStates()

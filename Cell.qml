@@ -34,4 +34,11 @@ Rectangle {
          Controller.show(cell, Controller.currentShow)
      }
     }
+    Connections {
+     target: agregator
+     ignoreUnknownSignals: true
+     function onSizeChanged(size){
+         cell.destroy();
+     }
+    }
 }

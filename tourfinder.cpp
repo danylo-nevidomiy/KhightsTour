@@ -60,15 +60,24 @@ void TourFinder::pathFinder(std::pair<int, int> current, int number)
 
 std::vector<std::pair<int, int> > TourFinder::getSteps(std::pair<int, int> point)
 {
-    std::vector<std::pair<int, int>> steps;
+    availableSteps.clear();
     constexpr int directions[8][2] = {{2,1}, {2, -1}, {1,-2}, {-1, -2}, {-2,-1}, {-2, 1}, {-1,2}, {1, 2}};
     for(auto i : directions){
         std::pair<int, int> checking = {i[0]+point.first, i[1]+point.second};
         if(isOnField(checking) && isCellFree(checking)){
-            steps.push_back(checking);
+            availableSteps.push_back(checking);
         }
     }
-    return steps;
+    return availableSteps;
+}
+
+void TourFinder::takeStep(std::pair<int, int> step)
+{
+    for(auto i : availableSteps){
+        if(step == i){
+            field[step.first][step.second] = currentNumber++;
+        }
+    }
 }
 
 bool TourFinder::isOnField(std::pair<int, int> point)

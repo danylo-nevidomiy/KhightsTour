@@ -15,9 +15,10 @@ class TourFinder
     int **field;
     int size = 7;
     int cellsCount;
+    int currentNumber = 1;
     std::vector<std::vector<int>> results;
+    std::vector<std::pair<int, int>> availableSteps;
 
-    std::vector<std::pair<int, int>> getSteps(std::pair<int, int> point);
     bool isOnField(std::pair<int, int> point);
     bool isCellFree(std::pair<int, int> point);
     void saveResult(int** result);
@@ -32,6 +33,8 @@ public:
         return results.size();
     };
     void saveResultNow(std::vector<int> res);
+    std::vector<std::pair<int, int>> getSteps(std::pair<int, int> point);
+    void takeStep(std::pair<int, int> step);
 //    void pathFinder(QPromise<std::vector<int>> &promise, std::pair<int, int> current, int number);
 //    void pathFinder(ResultHandler handler, std::pair<int, int> current, int number);
     void pathFinder(std::pair<int, int> current, int number);

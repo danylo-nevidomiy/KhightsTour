@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    ToursAgregator agregator(5);
+    ToursAgregator agregator(6);
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("agregator", &agregator);
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));

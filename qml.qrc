@@ -4,7 +4,7 @@
         <file>Controller.js</file>
         <file>Board.qml</file>
         <file>Cell.qml</file>
-        <file>Button.qml</file>
-        <file>Counter.qml</file>
+        <file>CustomButton.qml</file>
+        <file>InfoField.qml</file>
     </qresource>
 </RCC>
