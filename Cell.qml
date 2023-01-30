@@ -8,16 +8,16 @@ Rectangle {
 //    x: size * col
 //    y: size * row
 //    color: (col + row) % 2 ? "#90652C" : "#DEB887"
-    color: "#DEB887"
-    border.color: "black"
-    border.width: 1
-    radius: 5
+//    color: "#DEB887"
+//    border.color: "black"
+//    border.width: 1
+//    radius: 5
     Text{
         id:text
         text: "1"
-        font.bold: true
+//        font.bold: true
         anchors.centerIn: cell
-        font.pointSize : cell.height * 0.6
+        font.pointSize : cell.height * 0.44
     }
 
     Component.onCompleted: {

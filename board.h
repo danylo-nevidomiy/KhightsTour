@@ -19,6 +19,7 @@ public:
     virtual ~Board();
     bool isOnField(std::pair<int, int> point);
     bool isCellFree(std::pair<int, int> point);
+    std::vector<std::pair<int, int>> getSteps(std::pair<int, int> point);
 
     int size() const;
     void setSize(int newSize);

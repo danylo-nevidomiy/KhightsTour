@@ -16,12 +16,15 @@ void ToursAgregator::setStart(const std::pair<int, int> &newStart)
 void ToursAgregator::step(int index)
 {
     board->takeStep(index);
+    current++;
+    qDebug("taking...");
+    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
 }
 
 int ToursAgregator::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
-    return size();
+    return cellsCount();
 }
 
 QVariant ToursAgregator::data(const QModelIndex &index, int role) const
@@ -31,9 +34,9 @@ QVariant ToursAgregator::data(const QModelIndex &index, int role) const
     }
     int n = board->getCell(index.row());
     if(n == 0){
-        return QVariant("");
+        return QVariant(" ");
     }
-    return n;
+    return QVariant(n);
 
 }
 
@@ -126,13 +129,23 @@ void ToursAgregator::find()
 
 int ToursAgregator::size() const
 {
-    return board->cellsCount();
+    return board->size();
 }
 
 void ToursAgregator::setSize(int newSize)
 {
     board->setSize(newSize);
     emit sizeChanged(newSize);
+}
+
+int ToursAgregator::cellsCount() const
+{
+    return board->cellsCount();
+}
+
+void ToursAgregator::setCellsCount(int newCellsCount)
+{
+    board->setCellsCount(newCellsCount);
 }
 
 void ToursAgregator::updateCurrentStates()

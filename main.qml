@@ -1,7 +1,7 @@
-import QtQuick 2.1
-import QtQuick.Layouts 1.1
-import QtQuick.Window 2.1
-import QtQuick.Controls
+import QtQuick 2.11
+//import QtQuick.Layouts 1.1
+import QtQuick.Window 2.11
+//import QtQuick.Controls
 import Tour 1.0
 
 //import "Controller.js" as Controller
@@ -17,7 +17,7 @@ Window {
         width: window.width > window.height ? window.height : window.width
         height:rect.width
         anchors.centerIn: parent
-        color: "green"
+        color: "black"
         Board{
             id:board
             anchors.fill: parent

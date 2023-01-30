@@ -41,10 +41,12 @@ public:
     Q_INVOKABLE void find();
     Q_INVOKABLE int size() const;
     Q_INVOKABLE void setSize(int newSize);
+    int cellsCount() const;
+    void setCellsCount(int newCellsCount);
     void updateCurrentStates();
     const std::pair<int, int> &getStart() const;
     void setStart(const std::pair<int, int> &newStart);
-    void step(int index);
+    Q_INVOKABLE void step(int index);
 
 signals:
     void startChanged();

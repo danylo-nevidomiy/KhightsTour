@@ -1,4 +1,5 @@
 QT += quick
+CONFIG += c++11
 
 SOURCES += \
     agregatorgetter.cpp \
@@ -8,10 +9,9 @@ SOURCES += \
     tourfinder.cpp \
     toursagregator.cpp
 
-resources.files = main.qml 
-resources.prefix = /$${TARGET}
-RESOURCES += resources \
-    qml.qrc
+#resources.files = main.qml
+#resources.prefix = /$${TARGET}
+RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

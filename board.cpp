@@ -63,6 +63,19 @@ bool Board::isCellFree(std::pair<int, int> point)
     return true;
 }
 
+std::vector<std::pair<int, int>> Board::getSteps(std::pair<int, int> point)
+{
+    availableSteps.clear();
+    constexpr int directions[8][2] = {{2,1}, {2, -1}, {1,-2}, {-1, -2}, {-2,-1}, {-2, 1}, {-1,2}, {1, 2}};
+    for(auto i : directions){
+        std::pair<int, int> checking = {i[0]+point.first, i[1]+point.second};
+        if(isOnField(checking) && isCellFree(checking)){
+            availableSteps.push_back(checking);
+        }
+    }
+    return availableSteps;
+}
+
 int Board::size() const
 {
     return m_size;
@@ -77,11 +90,20 @@ void Board::setSize(int newSize)
 void Board::takeStep(int n)
 {
     auto x = getIndex(n);
-    for(auto i : availableSteps){
-        if(x == i){
-            field[x.first][x.second] = m_currentNumber++;
+    if(currentNumber() == 1){
+        field[x.first][x.second] = m_currentNumber++;
+        availableSteps = getSteps(x);
+    }else{
+        for(auto i : availableSteps){
+            if(x == i){
+                field[x.first][x.second] = m_currentNumber++;
+                availableSteps = getSteps(x);
+                return;
+            }
         }
     }
+
+    qDebug("x");
 }
 
 int Board::getCell(int n) const
