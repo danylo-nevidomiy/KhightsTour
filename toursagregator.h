@@ -2,14 +2,17 @@
 #define TOURSAGREGATOR_H
 
 #include <QObject>
+#include <QAbstractListModel>
 
 #include "tourfinder.h"
 #include "queuedispatcher.h"
+#include "board.h"
 
-class ToursAgregator : public QObject
+class ToursAgregator : public QAbstractListModel
 {
     Q_OBJECT
-    TourFinder* tour;
+//    TourFinder* tour;
+    Board* board;
     int current = 0;
     std::vector<int> currentResult;
     std::pair<int, int> start = {0,0};
@@ -20,6 +23,15 @@ public:
     ToursAgregator();
     ToursAgregator(int n);
     ~ToursAgregator();
+
+    void takeStep() const;
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+
+
+
     Q_INVOKABLE int getResultsCount() const;
     Q_INVOKABLE int getResultsValueAt(const int index) const;
     Q_INVOKABLE int nextResult();
@@ -27,12 +39,13 @@ public:
     Q_INVOKABLE bool hasNextResult() const;
     Q_INVOKABLE bool hasPrevResult() const;
     Q_INVOKABLE void find();
-    Q_INVOKABLE int getSize() const;
+    Q_INVOKABLE int size() const;
     Q_INVOKABLE void setSize(int newSize);
     void updateCurrentStates();
     const std::pair<int, int> &getStart() const;
     void setStart(const std::pair<int, int> &newStart);
-    void takeStep() const;
+    void step(int index);
+
 signals:
     void startChanged();
     void currentChanged(int);

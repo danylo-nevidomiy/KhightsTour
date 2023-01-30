@@ -13,21 +13,51 @@ void ToursAgregator::setStart(const std::pair<int, int> &newStart)
     emit startChanged();
 }
 
+void ToursAgregator::step(int index)
+{
+    board->takeStep(index);
+}
+
+int ToursAgregator::rowCount(const QModelIndex &parent) const
+{
+    Q_UNUSED(parent)
+    return size();
+}
+
+QVariant ToursAgregator::data(const QModelIndex &index, int role) const
+{
+    if (!index.isValid() || role != Qt::DisplayRole) {
+        return {};
+    }
+    int n = board->getCell(index.row());
+    if(n == 0){
+        return QVariant("");
+    }
+    return n;
+
+}
+
 ToursAgregator::ToursAgregator() : ToursAgregator(5){}
 
 ToursAgregator::ToursAgregator(int n)
 {
-    tour = new TourFinder(n);
+    board = new Board(n);
+
+//    tour = new TourFinder(n);
+//    find();
+//    currentResult = tour->getResult(0);
 }
 
 ToursAgregator::~ToursAgregator()
 {
-    delete tour;
+//    delete tour;
+    delete board;
 }
 
 int ToursAgregator::getResultsCount() const
 {
-    return tour->getResultsCount();
+//    return tour->getResultsCount();
+    return 0;
 }
 
 int ToursAgregator::getResultsValueAt(const int index) const
@@ -37,29 +67,32 @@ int ToursAgregator::getResultsValueAt(const int index) const
 
 int ToursAgregator::nextResult()
 {
-    if(current<tour->getResultsCount()){
-        emit currentChanged(++current+1);
-        currentResult = tour->getResult(current);
-    }
-    updateCurrentStates();
-    return current;
+//    if(current<tour->getResultsCount()){
+//        emit currentChanged(++current+1);
+//        currentResult = tour->getResult(current);
+//    }
+//    updateCurrentStates();
+//    return current;
+    return 0;
 }
 
 int ToursAgregator::prevResult()
 {
-    if(current>0){
-        emit currentChanged(--current+1);
-        currentResult = tour->getResult(current);
-    }
-    updateCurrentStates();
-    return current;
+//    if(current>0){
+//        emit currentChanged(--current+1);
+//        currentResult = tour->getResult(current);
+//    }
+//    updateCurrentStates();
+//    return current;
+    return 0;
 }
 
 bool ToursAgregator::hasNextResult() const
 {
-    if(current<tour->getResultsCount()){
-        return true;
-    }
+//    if(current<tour->getResultsCount()){
+//        return true;
+//    }
+//    return false;
     return false;
 }
 
@@ -80,22 +113,25 @@ void ToursAgregator::find()
 //            t.saveResultNow(result);
 //        });
 //    };
-    tour->pathFinder(start, 1);
-    emit resultCountChanged(tour->getResultsCount());
-    current = 0;
-    emit currentChanged(current+1);
-    updateCurrentStates();
+
+
+
+//    tour->pathFinder(start, 1);
+//    emit resultCountChanged(tour->getResultsCount());
+//    current = 0;
+//    emit currentChanged(current+1);
+//    updateCurrentStates();
 
 }
 
-int ToursAgregator::getSize() const
+int ToursAgregator::size() const
 {
-    return tour->getSize();
+    return board->cellsCount();
 }
 
 void ToursAgregator::setSize(int newSize)
 {
-    tour->setSize(newSize);
+    board->setSize(newSize);
     emit sizeChanged(newSize);
 }
 
