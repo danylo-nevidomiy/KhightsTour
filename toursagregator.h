@@ -49,6 +49,8 @@ public:
     void setStart(const std::pair<int, int> &newStart);
     Q_INVOKABLE void step(int index);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void forward();
+    Q_INVOKABLE void back();
 
 signals:
     void startChanged();

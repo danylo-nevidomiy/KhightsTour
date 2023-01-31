@@ -28,6 +28,17 @@ void ToursAgregator::clear()
     qDebug("cleared");
 }
 
+void ToursAgregator::forward()
+{
+
+}
+
+void ToursAgregator::back()
+{
+    board->back();
+    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+}
+
 int ToursAgregator::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)

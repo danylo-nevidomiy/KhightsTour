@@ -20,6 +20,25 @@ void Board::setCellsCount(int newCellsCount)
     m_cellsCount = newCellsCount;
 }
 
+void Board::back()
+{
+    if(m_historyLength == 1){
+        m_historyLength--;
+        field[history[m_historyLength][0]][history[m_historyLength][1]] = 0;
+        m_currentNumber--;
+    } else if(m_historyLength>1){
+        m_historyLength--;
+        field[history[m_historyLength][0]][history[m_historyLength][1]] = 0;
+        getSteps(std::make_pair(history[m_historyLength-1][0], history[m_historyLength-1][0]));
+        m_currentNumber--;
+    }
+}
+
+void Board::forward()
+{
+
+}
+
 std::pair<int, int> Board::getIndex(int n) const
 {
     return std::make_pair(n/m_size, n%m_size);
@@ -31,10 +50,11 @@ void Board::setAvailableSteps(int i, int x, int y)
     m_availableSteps[i][1] = y;
 }
 
-void Board::setHistoryStep(int i, int x, int y)
+void Board::setHistoryStep(int x, int y)
 {
-    history[i][0] = x;
-    history[i][1] = y;
+    history[m_historyLength][0] = x;
+    history[m_historyLength][1] = y;
+    m_historyLength++;
 }
 
 Board::Board() : Board(defaultSize){}
@@ -44,10 +64,12 @@ Board::Board(int n)
     m_size = n;
     m_cellsCount = m_size*m_size;
     field = new int*[m_size];
-//    history = new int*[m_cellsCount];
+    history = new int*[m_cellsCount];
     for(int i=0;i<m_size;i++){
         field[i] = new int[m_size]{0};
-//        history[i] = new int[2]{0};
+    }
+    for(int i=0;i<m_cellsCount;i++){
+        history[i] = new int[2]{0};
     }
 }
 
@@ -55,10 +77,10 @@ Board::~Board()
 {
     for(int i=0;i<m_size;i++){
         delete field[i];
-//        delete history[i];
+        delete history[i];
     }
     delete field;
-//    delete history;
+    delete history;
 }
 
 bool Board::isOnField(std::pair<int, int> point)
@@ -106,14 +128,14 @@ void Board::takeStep(int n)
 {
     auto x = getIndex(n);
     if(currentNumber() == 1){
-//        setHistoryStep(currentNumber()-1, x.first, x.second);
+        setHistoryStep(x.first, x.second);
         field[x.first][x.second] = m_currentNumber++;
         getSteps(x);
         return;
     }else{
         for(int i=0;i<m_availableStepsCount;i++){
             if(x.first == m_availableSteps[i][0] && x.second == m_availableSteps[i][1]){
-//                setHistoryStep(currentNumber()-1, x.first, x.second);
+                setHistoryStep(x.first, x.second);
                 field[x.first][x.second] = m_currentNumber++;
                 if(currentNumber() > m_cellsCount){
                     //victory

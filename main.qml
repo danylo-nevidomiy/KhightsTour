@@ -96,14 +96,31 @@ Window {
                 RoundButton{
                     height: row.height
                     text: qsTr("New game")
-//                    palette.buttonText: "black"
                     Material.background: "burlywood"
                     Material.foreground: "black"
                     radius: 5
-//                    text.
                     onClicked: {
                         board.model.clear();
-                        console.log("model.clear()");
+                    }
+                }
+                RoundButton{
+                    height: row.height
+                    text: qsTr("Back")
+                    Material.background: "burlywood"
+                    Material.foreground: "black"
+                    radius: 5
+                    onClicked: {
+                        board.model.back();
+                    }
+                }
+                RoundButton{
+                    height: row.height
+                    text: qsTr("Forward")
+                    Material.background: "burlywood"
+                    Material.foreground: "black"
+                    radius: 5
+                    onClicked: {
+//                        board.model.clear();
                     }
                 }
                 CustomButton {

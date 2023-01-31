@@ -4,20 +4,25 @@
 #include <QObject>
 
 static constexpr int defaultSize = 5;
+static constexpr int defaultHistoryLength = 0;
+static constexpr int defaultMaxHistoryLength = 0;
+static constexpr int defaultCurrentNumber = 0;
+static constexpr int defaultAvailableStepsCount = 0;
 
 class Board
 {
     int **field;
     int m_size;
     int m_cellsCount;
-    int m_currentNumber = 1;
+    int m_currentNumber;
     int m_availableSteps[8][2];
-    int m_availableStepsCount = 0;
+    int m_availableStepsCount;
     std::pair<int, int> getIndex(int n) const;
     int **history;
-    std::pair<int, int> current;
+    int m_historyLength;
+    int m_maxHistoryLength;
     void setAvailableSteps(int i, int x, int y);
-    void setHistoryStep(int i, int x, int y);
+    void setHistoryStep(int x, int y);
 public:
     Board();
     Board(int n);
@@ -34,6 +39,8 @@ public:
     void setCurrentNumber(int newCurrentNumber);
     int cellsCount() const;
     void setCellsCount(int newCellsCount);
+    void back();
+    void forward();
 };
 
 #endif // TOUR_H
