@@ -111,10 +111,13 @@ void Board::takeStep(int n)
         getSteps(x);
         return;
     }else{
-        for(auto i : m_availableSteps){
-            if(x.first == i[0] && x.second == i[1]){
+        for(int i=0;i<m_availableStepsCount;i++){
+            if(x.first == m_availableSteps[i][0] && x.second == m_availableSteps[i][1]){
 //                setHistoryStep(currentNumber()-1, x.first, x.second);
                 field[x.first][x.second] = m_currentNumber++;
+                if(currentNumber() > m_cellsCount){
+                    //victory
+                }
                 getSteps(x);
                 return;
             }
