@@ -20,28 +20,43 @@ void Board::setCellsCount(int newCellsCount)
     m_cellsCount = newCellsCount;
 }
 
-void Board::back()
+int Board::back()
 {
     if(m_historyLength == 1){
         m_historyLength--;
         field[history[m_historyLength][0]][history[m_historyLength][1]] = 0;
         m_currentNumber--;
+        return getIndexFromXY(history[m_historyLength][0], history[m_historyLength][1]);
     } else if(m_historyLength>1){
         m_historyLength--;
         field[history[m_historyLength][0]][history[m_historyLength][1]] = 0;
-        getSteps(std::make_pair(history[m_historyLength-1][0], history[m_historyLength-1][0]));
+        getSteps(std::make_pair(history[m_historyLength-1][0], history[m_historyLength-1][1]));
         m_currentNumber--;
+        return getIndexFromXY(history[m_historyLength][0], history[m_historyLength][1]);
     }
+    return noCellsChanged;
 }
 
-void Board::forward()
+int Board::forward()
 {
 
+    if(m_maxHistoryLength > m_historyLength){
+        field[history[m_historyLength][0]][history[m_historyLength][1]] = m_currentNumber++;
+        getSteps(std::make_pair(history[m_historyLength][0], history[m_historyLength][1]));
+        m_historyLength++;
+        return getIndexFromXY(history[m_historyLength-1][0], history[m_historyLength-1][1]);
+    }
+    return noCellsChanged;
 }
 
-std::pair<int, int> Board::getIndex(int n) const
+std::pair<int, int> Board::getXYFromIdex(int n) const
 {
     return std::make_pair(n/m_size, n%m_size);
+}
+
+int Board::getIndexFromXY(int x, int y) const
+{
+    return x*m_size+y;
 }
 
 void Board::setAvailableSteps(int i, int x, int y)
@@ -52,17 +67,32 @@ void Board::setAvailableSteps(int i, int x, int y)
 
 void Board::setHistoryStep(int x, int y)
 {
+    if(m_maxHistoryLength > m_historyLength){
+        if(history[m_historyLength][0] == x && history[m_historyLength][1] == y){
+            m_historyLength++;
+            return;
+        }else{
+            m_maxHistoryLength = m_historyLength + 1;
+        }
+    }else{
+        m_maxHistoryLength++;
+    }
     history[m_historyLength][0] = x;
     history[m_historyLength][1] = y;
     m_historyLength++;
+
 }
 
 Board::Board() : Board(defaultSize){}
 
 Board::Board(int n)
+    : m_size(n),
+    m_cellsCount(m_size*m_size),
+    m_currentNumber(defaultCurrentNumber),
+    m_availableStepsCount(defaultAvailableStepsCount),
+    m_historyLength(defaultHistoryLength),
+    m_maxHistoryLength(defaultMaxHistoryLength)
 {
-    m_size = n;
-    m_cellsCount = m_size*m_size;
     field = new int*[m_size];
     history = new int*[m_cellsCount];
     for(int i=0;i<m_size;i++){
@@ -126,7 +156,7 @@ void Board::setSize(int newSize)
 
 void Board::takeStep(int n)
 {
-    auto x = getIndex(n);
+    auto x = getXYFromIdex(n);
     if(currentNumber() == 1){
         setHistoryStep(x.first, x.second);
         field[x.first][x.second] = m_currentNumber++;
@@ -150,7 +180,7 @@ void Board::takeStep(int n)
 
 int Board::getCell(int n) const
 {
-    auto i = getIndex(n);
+    auto i = getXYFromIdex(n);
     return field[i.first][i.second];
 }
 

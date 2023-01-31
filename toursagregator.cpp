@@ -1,23 +1,22 @@
 #include "toursagregator.h"
 
-const std::pair<int, int> &ToursAgregator::getStart() const
-{
-    return start;
-}
+//const std::pair<int, int> &ToursAgregator::getStart() const
+//{
+//    return start;
+//}
 
-void ToursAgregator::setStart(const std::pair<int, int> &newStart)
-{
-    if (start == newStart)
-        return;
-    start = newStart;
-    emit startChanged();
-}
+//void ToursAgregator::setStart(const std::pair<int, int> &newStart)
+//{
+//    if (start == newStart)
+//        return;
+//    start = newStart;
+//    emit startChanged();
+//}
 
 void ToursAgregator::step(int index)
 {
     board->takeStep(index);
-    qDebug("taking...");
-    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+    emit dataChanged(createIndex(index, 0), createIndex(index, 0));
 }
 
 void ToursAgregator::clear()
@@ -25,18 +24,23 @@ void ToursAgregator::clear()
     delete board;
     board = new Board();
     emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
-    qDebug("cleared");
 }
 
 void ToursAgregator::forward()
 {
+    int update = board->forward();
+    if(update > -1){
+        emit dataChanged(createIndex(update, 0), createIndex(update, 0));
+    }
 
 }
 
 void ToursAgregator::back()
 {
-    board->back();
-    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+    int update = board->back();
+    if(update > -1){
+        emit dataChanged(createIndex(update, 0), createIndex(update, 0));
+    }
 }
 
 int ToursAgregator::rowCount(const QModelIndex &parent) const
@@ -63,15 +67,10 @@ ToursAgregator::ToursAgregator() : ToursAgregator(5){}
 ToursAgregator::ToursAgregator(int n)
 {
     board = new Board(n);
-
-//    tour = new TourFinder(n);
-//    find();
-//    currentResult = tour->getResult(0);
 }
 
 ToursAgregator::~ToursAgregator()
 {
-//    delete tour;
     delete board;
 }
 

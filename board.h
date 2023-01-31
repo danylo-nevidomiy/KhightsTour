@@ -2,22 +2,28 @@
 #define TOUR_H
 
 #include <QObject>
+#include <iostream>
 
-static constexpr int defaultSize = 5;
-static constexpr int defaultHistoryLength = 0;
-static constexpr int defaultMaxHistoryLength = 0;
-static constexpr int defaultCurrentNumber = 0;
-static constexpr int defaultAvailableStepsCount = 0;
+
 
 class Board
 {
+    static constexpr int defaultSize = 5;
+    static constexpr int defaultHistoryLength = 0;
+    static constexpr int defaultMaxHistoryLength = 0;
+    static constexpr int defaultCurrentNumber = 1;
+    static constexpr int defaultAvailableStepsCount = 0;
+
+    static constexpr int noCellsChanged = -1;
+
     int **field;
     int m_size;
     int m_cellsCount;
     int m_currentNumber;
     int m_availableSteps[8][2];
     int m_availableStepsCount;
-    std::pair<int, int> getIndex(int n) const;
+    std::pair<int, int> getXYFromIdex(int n) const;
+    int getIndexFromXY(int x, int y) const;
     int **history;
     int m_historyLength;
     int m_maxHistoryLength;
@@ -39,8 +45,11 @@ public:
     void setCurrentNumber(int newCurrentNumber);
     int cellsCount() const;
     void setCellsCount(int newCellsCount);
-    void back();
-    void forward();
+    int back();
+    int forward();
+
+signals:
+    void victory();
 };
 
 #endif // TOUR_H

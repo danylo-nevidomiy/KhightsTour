@@ -63,26 +63,26 @@ Window {
                 anchors.margins: 8
                 spacing: 8
 
-                MenuBar{
-                    height: row.height
-                    width: 100
-                    Menu{
-                        width: 100
-                        title: qsTr("&Count")
-                        Action {
-                            text: qsTr("5")
-                            onTriggered: agregator.setSize(5);
-                        }
-                        Action {
-                            text: qsTr("6")
-                            onTriggered: agregator.setSize(6);
-                        }
-                        Action {
-                            text: qsTr("7")
-                            onTriggered: agregator.setSize(7);
-                        }
-                    }
-                }
+//                MenuBar{
+//                    height: row.height
+//                    width: 100
+//                    Menu{
+//                        width: 100
+//                        title: qsTr("&Count")
+//                        Action {
+//                            text: qsTr("5")
+//                            onTriggered: agregator.setSize(5);
+//                        }
+//                        Action {
+//                            text: qsTr("6")
+//                            onTriggered: agregator.setSize(6);
+//                        }
+//                        Action {
+//                            text: qsTr("7")
+//                            onTriggered: agregator.setSize(7);
+//                        }
+//                    }
+//                }
 
 //                        Rectangle{
 //                        TextEdit{
@@ -120,66 +120,65 @@ Window {
                     Material.foreground: "black"
                     radius: 5
                     onClicked: {
+                        board.model.forward();
+                    }
+                }
+//                CustomButton {
+//                    height: row.height
+//                    caption: qsTr("New Game")
+//                    onClicked: {
 //                        board.model.clear();
-                    }
-                }
-                CustomButton {
-                    height: row.height
-                    caption: qsTr("New Game")
-                    onClicked: {
-                        board.model.clear();
-                        console.log("model.clear()");
-                    }
-                    //            visible: !canvas.playingState
-                }
+//                    }
+//                    //            visible: !canvas.playingState
+//                }
 
-                CustomButton {
-                    height: row.height
-                    caption: qsTr("Save")
-                    onClicked: Controller.save();
-                    //            visible: canvas.playingState
-                }
+//                CustomButton {
+//                    height: row.height
+//                    caption: qsTr("Save")
+//                    onClicked: Controller.save();
+//                    //            visible: canvas.playingState
+//                }
 
-                CustomButton {
-                    height: row.height
-                    caption: qsTr("Find")
-                    onClicked: {
-                        Controller.find();
-                    }
-                    visible: true
-                }
+//                CustomButton {
+//                    height: row.height
+//                    caption: qsTr("Find")
+//                    onClicked: {
+//                        Controller.find();
+//                    }
+//                    visible: true
+//                }
 
-                CustomButton {
-                    id:prev
-                    height: row.height
-                    caption: qsTr("Prev")
-                    onClicked: {
-                        Controller.prev();
-                        window.update();
-                    }
-                    //            visible: canvas.historyState
-                    //            enabled: window.hasPrevResult
-                }
+//                CustomButton {
+//                    id:prev
+//                    height: row.height
+//                    caption: qsTr("Prev")
+//                    onClicked: {
+//                        Controller.prev();
+//                        window.update();
+//                    }
+//                    //            visible: canvas.historyState
+//                    //            enabled: window.hasPrevResult
+//                }
 
-                InfoField {
-                    height: row.height
-                    caption: "/"
-                    //            onClicked: Controller.stop();
-                    //            visible: canvas.playingState
-                }
+//                InfoField {
+//                    height: row.height
+//                    caption: "/"
+//                    //            onClicked: Controller.stop();
+//                    //            visible: canvas.playingState
+//                }
 
 
-                CustomButton {
-                    id:next
-                    height: row.height
-                    caption: qsTr("Next")
-                    onClicked: {
-                        Controller.next();
-                        window.update();
-                    }
-                    //            visible: canvas.historyState
-                    //            enabled: window.hasNextResult
-                }
+//                CustomButton {
+//                    id:next
+//                    height: row.height
+//                    caption: qsTr("Next")
+//                    onClicked: {
+//                        Controller.next();
+//                        window.update();
+//                    }
+//                    //            visible: canvas.historyState
+//                    //            enabled: window.hasNextResult
+//                }
             }
         }
     }

@@ -26,7 +26,6 @@ GridView{
                 anchors.fill: parent
                 onClicked: {
                     board.model.step(index);
-                    console.log("clicked")
                 }
             }
 //            height: board.cellHeight

@@ -15,10 +15,10 @@ class ToursAgregator : public QAbstractListModel
     Board* board;
 
     std::vector<int> currentResult;
-    std::pair<int, int> start = {0,0};
+//    std::pair<int, int> start = {0,0};
 
     QueueDispatcher dispatcher;
-    Q_PROPERTY(std::pair<int, int> start READ getStart WRITE setStart NOTIFY startChanged)
+//    Q_PROPERTY(std::pair<int, int> start READ getStart WRITE setStart NOTIFY startChanged)
 
 public:
     ToursAgregator();
@@ -45,15 +45,15 @@ public:
     int cellsCount() const;
     void setCellsCount(int newCellsCount);
     void updateCurrentStates();
-    const std::pair<int, int> &getStart() const;
-    void setStart(const std::pair<int, int> &newStart);
+//    const std::pair<int, int> &getStart() const;
+//    void setStart(const std::pair<int, int> &newStart);
     Q_INVOKABLE void step(int index);
     Q_INVOKABLE void clear();
     Q_INVOKABLE void forward();
     Q_INVOKABLE void back();
 
 signals:
-    void startChanged();
+//    void startChanged();
     void currentChanged(int);
     void hasNextResultChanged(bool);
     void hasPrevResultChanged(bool);
