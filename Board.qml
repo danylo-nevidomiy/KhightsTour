@@ -37,13 +37,6 @@ GridView{
         }
     }
 
-    Getter{
-        id: getter
-    }
-    Component.onCompleted: {
 
-        board.model = getter.getBoard();
-        //        Controller.createCells(board)
-    }
 
 }

@@ -58,7 +58,7 @@ void TourFinder::pathFinder(std::pair<int, int> current, int number)
     field[current.first][current.second] = 0;
 }
 
-std::vector<std::pair<int, int> > TourFinder::getSteps(std::pair<int, int> point)
+std::vector<std::pair<int, int>> TourFinder::getSteps(std::pair<int, int> point)
 {
     availableSteps.clear();
     constexpr int directions[8][2] = {{2,1}, {2, -1}, {1,-2}, {-1, -2}, {-2,-1}, {-2, 1}, {-1,2}, {1, 2}};

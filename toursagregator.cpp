@@ -16,9 +16,16 @@ void ToursAgregator::setStart(const std::pair<int, int> &newStart)
 void ToursAgregator::step(int index)
 {
     board->takeStep(index);
-    current++;
     qDebug("taking...");
     emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+}
+
+void ToursAgregator::clear()
+{
+    delete board;
+    board = new Board();
+    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+    qDebug("cleared");
 }
 
 int ToursAgregator::rowCount(const QModelIndex &parent) const
@@ -101,9 +108,9 @@ bool ToursAgregator::hasNextResult() const
 
 bool ToursAgregator::hasPrevResult() const
 {
-    if(current>0){
-        return true;
-    }
+//    if(current>0){
+//        return true;
+//    }
     return false;
 }
 
