@@ -2,6 +2,7 @@
 #define TOURSVIEWMODEL_H
 
 #include <QObject>
+#include <QScreen>
 
 #include "toursagregator.h"
 

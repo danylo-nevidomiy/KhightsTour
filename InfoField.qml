@@ -13,4 +13,8 @@ Rectangle {
         style: Text.Raised
         text:"0"
     }
+    function print(txt)
+    {
+        console.log(text);
+    }
 }
