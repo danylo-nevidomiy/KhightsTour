@@ -15,7 +15,9 @@
 
 void ToursAgregator::step(int index)
 {
-    board->takeStep(index);
+    if(board->takeStep(index)){
+        emit victory();
+    }
     emit dataChanged(createIndex(index, 0), createIndex(index, 0));
 }
 
@@ -23,6 +25,13 @@ void ToursAgregator::clear()
 {
     delete board;
     board = new Board();
+    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+}
+
+void ToursAgregator::changeBoard(int n)
+{
+    delete board;
+    board = new Board(n);
     emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
 }
 

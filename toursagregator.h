@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QAbstractListModel>
+#include <QList>
 
 #include "tourfinder.h"
 #include "queuedispatcher.h"
@@ -15,8 +16,6 @@ class ToursAgregator : public QAbstractListModel
     Board* board;
 
     std::vector<int> currentResult;
-//    std::pair<int, int> start = {0,0};
-
     QueueDispatcher dispatcher;
 //    Q_PROPERTY(std::pair<int, int> start READ getStart WRITE setStart NOTIFY startChanged)
 
@@ -49,10 +48,15 @@ public:
 //    void setStart(const std::pair<int, int> &newStart);
     Q_INVOKABLE void step(int index);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void changeBoard(int n);
     Q_INVOKABLE void forward();
     Q_INVOKABLE void back();
 
+    const QList<int> &dimensions() const;
+
 signals:
+
+    void victory();
 //    void startChanged();
     void currentChanged(int);
     void hasNextResultChanged(bool);

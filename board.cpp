@@ -154,28 +154,28 @@ void Board::setSize(int newSize)
     m_cellsCount = m_size*m_size;
 }
 
-void Board::takeStep(int n)
+bool Board::takeStep(int n)
 {
     auto x = getXYFromIdex(n);
     if(currentNumber() == 1){
         setHistoryStep(x.first, x.second);
         field[x.first][x.second] = m_currentNumber++;
         getSteps(x);
-        return;
+        return false;
     }else{
         for(int i=0;i<m_availableStepsCount;i++){
             if(x.first == m_availableSteps[i][0] && x.second == m_availableSteps[i][1]){
                 setHistoryStep(x.first, x.second);
                 field[x.first][x.second] = m_currentNumber++;
                 if(currentNumber() > m_cellsCount){
-                    //victory
+                    return true;
                 }
                 getSteps(x);
-                return;
+                return false;
             }
         }
     }
-
+    return false;
 }
 
 int Board::getCell(int n) const

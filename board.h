@@ -39,7 +39,7 @@ public:
 
     int size() const;
     void setSize(int newSize);
-    void takeStep(int n);
+    bool takeStep(int n);
     int getCell(int n) const;
     int currentNumber() const;
     void setCurrentNumber(int newCurrentNumber);
@@ -48,8 +48,6 @@ public:
     int back();
     int forward();
 
-signals:
-    void victory();
 };
 
 #endif // TOUR_H

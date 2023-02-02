@@ -9,3 +9,8 @@ ToursAgregator *AgregatorGetter::getBoard()
 {
     return &agregator;
 }
+
+DimensionsList *AgregatorGetter::getDimensions()
+{
+    return &list;
+}

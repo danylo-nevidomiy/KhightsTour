@@ -1,9 +1,10 @@
-QT += quick core
+QT += quick core widgets quickwidgets
 CONFIG += c++11
 
 SOURCES += \
     agregatorgetter.cpp \
     board.cpp \
+    dimensionslist.cpp \
     main.cpp \
     queuedispatcher.cpp \
     tourfinder.cpp \
@@ -27,6 +28,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     agregatorgetter.h \
     board.h \
+    dimensionslist.h \
     queuedispatcher.h \
     tourfinder.h \
     toursagregator.h

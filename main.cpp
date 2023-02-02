@@ -1,13 +1,14 @@
-#include <QGuiApplication>
+//#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
+//#include <QQmlContext>
 
 #include "toursagregator.h"
 #include "agregatorgetter.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     qmlRegisterType<ToursAgregator>("Tour", 1, 0, "Agregator");
     qmlRegisterType<AgregatorGetter>("Tour", 1, 0, "Getter");

@@ -6,5 +6,7 @@
         <file>Cell.qml</file>
         <file>CustomButton.qml</file>
         <file>InfoField.qml</file>
+        <file>VictoryDialog.qml</file>
+        <file>CreateBoardDialog.qml</file>
     </qresource>
 </RCC>

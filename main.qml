@@ -1,6 +1,6 @@
 import QtQuick 2.11
 import QtQuick.Layouts 1.1
-import QtQuick.Window 2.11
+//import QtQuick.Window 2.11
 import QtQuick.Controls.Material 2.12
 import QtQuick.Controls
 import Tour 1.0
@@ -16,15 +16,21 @@ Window {
     //    minimumWidth: 300
     title: qsTr("Knight's tour")
 
-    //    Connections{
-    //        target: Emiter
-    //        function onSendResolution(w, h){
-    //            window.width = w;
-    //            window.height = h;
-    //            col.width = w;
-    //            col.height = h;
-    //        }
-    //    }
+    VictoryDialog{
+        id:vd
+    }
+    CreateBoardDialog{
+        id:createDial
+        mainMenu{}
+        instantiator.model: getter.getDimensions()
+//        mainMenu.contentItem: ListView{
+//            model:getter.getDimensions()
+//        }
+        onAccepted: {
+            board.model.changeBoard(mainMenu.currentIndex);
+//            board.model.clear();
+        }
+    }
     ColumnLayout{
         id:col
         anchors.fill: parent
@@ -65,7 +71,15 @@ Window {
                     Component.onCompleted: {
 
                         board.model = getter.getBoard();
+//                        createDial.mainMenu.contentData = board.model.dimensions;
                         //        Controller.createCells(board)
+                    }
+                    Connections{
+                        target: board.model
+                        ignoreUnknownSignals: true
+                        function onVictory(){
+                            vd.open();
+                        }
                     }
                 }
             }
@@ -124,7 +138,8 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
                     radius: 5
                     onClicked: {
-                        board.model.clear();
+                        createDial.open();
+
                     }
                 }
                 RoundButton{
@@ -149,6 +164,9 @@ Window {
                         board.model.forward();
                     }
                 }
+
+
+
 //                InfoField {
 //                    height: row.height
 //                    caption:window.width + ":" + window.height + "/" + gb.width + ":" + gb.height + "/" + rect.width + ":" + rect.height + "/" + board.width + ":" + board.height + "/"
@@ -216,4 +234,7 @@ Window {
             }
         }
     }
+
+
+
 }
