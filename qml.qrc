@@ -8,5 +8,6 @@
         <file>InfoField.qml</file>
         <file>VictoryDialog.qml</file>
         <file>CreateBoardDialog.qml</file>
+        <file>MenuModel.qml</file>
     </qresource>
 </RCC>

@@ -106,11 +106,11 @@ Board::Board(int n)
 Board::~Board()
 {
     for(int i=0;i<m_size;i++){
-        delete field[i];
-        delete history[i];
+        delete[] field[i];
+        delete[] history[i];
     }
-    delete field;
-    delete history;
+    delete[] field;
+    delete[] history;
 }
 
 bool Board::isOnField(std::pair<int, int> point)

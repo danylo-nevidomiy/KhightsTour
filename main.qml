@@ -16,13 +16,19 @@ Window {
     //    minimumWidth: 300
     title: qsTr("Knight's tour")
 
+    Getter{
+        id: getter
+    }
     VictoryDialog{
         id:vd
+    }
+    MenuModel{
+        id:model
     }
     CreateBoardDialog{
         id:createDial
         mainMenu{}
-        instantiator.model: getter.getDimensions()
+        instantiator.model: model
 //        mainMenu.contentItem: ListView{
 //            model:getter.getDimensions()
 //        }
@@ -65,9 +71,7 @@ Window {
                     anchors.horizontalCenter: rect.horizontalCenter
                     //                    anchors.fill: parent
                     anchors.margins: 5
-                    Getter{
-                        id: getter
-                    }
+
                     Component.onCompleted: {
 
                         board.model = getter.getBoard();

@@ -1,7 +1,7 @@
 import QtQuick 2.0
 //import Qt.labs.platform
 import QtQuick.Layouts
-import QtQuick.Controls
+import QtQuick.Controls 2.12
 import QtQuick.Dialogs
 import QtQml
 
@@ -21,20 +21,28 @@ Dialog {
             id:menu
             width: 100
             title: qsTr("&Count")
-            Repeater{
+            Instantiator{
                 id:instant
 
-                        MenuItem{
-                            text: display.toString()
+                       delegate: MenuItem{
+                           id: mitem
+                            text: model.text
+                            onTriggered: {
+                                dial.size = model.text
+                                menu.title = model.text
+                            }
                         }
-//                        onObjectAdded: menu.insertItem(index, object)
+                        onObjectAdded: function(index, object) {
+                            menu.insertItem(instant.count, object)
+                        }
+
                     }
 //            contentData: dial.dim
-            delegate:
-            Action {
-                text: display.toString()
-//                onTriggered: size = 5;
-            }
+//            delegate:
+//            Action {
+//                text: display.toString()
+////                onTriggered: size = 5;
+//            }
         }
     }
     standardButtons: Dialog.Ok | Dialog.Cancel

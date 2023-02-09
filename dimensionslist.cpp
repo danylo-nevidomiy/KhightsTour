@@ -1,5 +1,18 @@
 #include "dimensionslist.h"
 
+const QString &DimensionsList::text() const
+{
+    return m_text;
+}
+
+void DimensionsList::setText(const QString &newText)
+{
+    if (m_text == newText)
+        return;
+    m_text = newText;
+    emit textChanged();
+}
+
 DimensionsList::DimensionsList()
 {
 
