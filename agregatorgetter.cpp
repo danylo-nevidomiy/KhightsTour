@@ -12,5 +12,6 @@ ToursAgregator *AgregatorGetter::getBoard()
 
 DimensionsList *AgregatorGetter::getDimensions()
 {
+    qDebug() << "*AgregatorGetter::getDimensions()";
     return &list;
 }

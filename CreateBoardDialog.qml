@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls 2.12
 import QtQuick.Dialogs
 import QtQml
+import Tour 1.0
 
 Dialog {
     id:dial
@@ -13,6 +14,9 @@ Dialog {
 //    property list<int> intList: [0,1]
     property alias mainMenu: menu
     property alias instantiator: instant
+    Getter{
+        id: getter
+    }
     contentItem:
         MenuBar{
         height: row.height
@@ -23,19 +27,22 @@ Dialog {
             title: qsTr("&Count")
             Instantiator{
                 id:instant
-
+//                model: getter.getDimensions()
                        delegate: MenuItem{
                            id: mitem
                             text: model.text
                             onTriggered: {
+                                console.log(model.text);
                                 dial.size = model.text
                                 menu.title = model.text
                             }
                         }
                         onObjectAdded: function(index, object) {
-                            menu.insertItem(instant.count, object)
+                            menu.insertItem(instant.count, object);
                         }
-
+                    Component.onCompleted: {
+//                        instant.model = getter.getDimensions();
+                    }
                     }
 //            contentData: dial.dim
 //            delegate:

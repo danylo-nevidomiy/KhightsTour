@@ -30,6 +30,7 @@ void ToursAgregator::clear()
 
 void ToursAgregator::changeBoard(int n)
 {
+    qDebug() << "ToursAgregator::changeBoard(int n)";
     delete board;
     board = new Board(n);
     emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
@@ -63,6 +64,7 @@ QVariant ToursAgregator::data(const QModelIndex &index, int role) const
     if (!index.isValid() || role != Qt::DisplayRole) {
         return {};
     }
+//    qDebug() << "TOUR: index.row() = " << index.row();
     int n = board->getCell(index.row());
     if(n == 0){
         return QVariant(" ");

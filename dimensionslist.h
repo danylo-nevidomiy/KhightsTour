@@ -5,7 +5,7 @@
 #include <QAbstractListModel>
 #include <QStandardItemModel>
 
-class DimensionsList : public QStandardItemModel
+class DimensionsList : public QAbstractListModel
 {
     Q_OBJECT
     static constexpr int m_defaultDimension = 5;

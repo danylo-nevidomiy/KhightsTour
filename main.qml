@@ -27,14 +27,18 @@ Window {
     }
     CreateBoardDialog{
         id:createDial
-        mainMenu{}
-        instantiator.model: model
+//        mainMenu{}
+//        instantiator.model: getter.getDimensions()
 //        mainMenu.contentItem: ListView{
 //            model:getter.getDimensions()
 //        }
         onAccepted: {
-            board.model.changeBoard(mainMenu.currentIndex);
+            board.model.changeBoard(createDial.size);
 //            board.model.clear();
+        }
+        Component.onCompleted: {
+            createDial.instantiator.model = model
+
         }
     }
     ColumnLayout{

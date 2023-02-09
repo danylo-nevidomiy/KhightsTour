@@ -15,7 +15,7 @@ void DimensionsList::setText(const QString &newText)
 
 DimensionsList::DimensionsList()
 {
-
+    qDebug() << "DimensionsList::DimensionsList()";
 }
 
 int DimensionsList::rowCount(const QModelIndex &parent) const
@@ -29,5 +29,7 @@ QVariant DimensionsList::data(const QModelIndex &index, int role) const
     if (!index.isValid() || role != Qt::DisplayRole) {
         return QVariant(m_defaultDimension);
     }
+    qDebug() << "index.row() = " << index.row();
+    qDebug() << "dim[i] = " << m_dimensions[index.row()];
     return QVariant(m_dimensions[index.row()]);
 }
