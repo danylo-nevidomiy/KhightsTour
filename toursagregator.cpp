@@ -30,10 +30,14 @@ void ToursAgregator::clear()
 
 void ToursAgregator::changeBoard(int n)
 {
-    qDebug() << "ToursAgregator::changeBoard(int n)";
+    qDebug() << "ToursAgregator::changeBoard() = " << n;
     delete board;
     board = new Board(n);
-    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
+    qDebug() << "size = " << board->size();
+    qDebug() << "count = " << board->cellsCount();
+    QModelIndex topLeft = createIndex(0,0);
+    QModelIndex bottomRight = createIndex(board->cellsCount() ,0);
+    emit dataChanged(index(0), index(0));
 }
 
 void ToursAgregator::forward()

@@ -10,8 +10,10 @@ Dialog {
     id:dial
     title: qsTr("New Board")
     modal: Qt.ApplicationModal
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
     property int size: 5
-//    property list<int> intList: [0,1]
+    //    property list<int> intList: [0,1]
     property alias mainMenu: menu
     property alias instantiator: instant
     Getter{
@@ -27,36 +29,36 @@ Dialog {
             title: qsTr("&Count")
             Instantiator{
                 id:instant
-//                model: getter.getDimensions()
-                       delegate: MenuItem{
-                           id: mitem
-                            text: model.text
-                            onTriggered: {
-                                console.log(model.text);
-                                dial.size = model.text
-                                menu.title = model.text
-                            }
-                        }
-                        onObjectAdded: function(index, object) {
-                            menu.insertItem(instant.count, object);
-                        }
-                    Component.onCompleted: {
-//                        instant.model = getter.getDimensions();
+                //                model: getter.getDimensions()
+                delegate: MenuItem{
+                    id: mitem
+                    text: model.text
+                    onTriggered: {
+                        console.log(model.text);
+                        dial.size = model.text
+                        menu.title = model.text
                     }
-                    }
-//            contentData: dial.dim
-//            delegate:
-//            Action {
-//                text: display.toString()
-////                onTriggered: size = 5;
-//            }
+                }
+                onObjectAdded: function(index, object) {
+                    menu.insertItem(instant.count, object);
+                }
+                Component.onCompleted: {
+                    //                        instant.model = getter.getDimensions();
+                }
+            }
+            //            contentData: dial.dim
+            //            delegate:
+            //            Action {
+            //                text: display.toString()
+            ////                onTriggered: size = 5;
+            //            }
         }
     }
     standardButtons: Dialog.Ok | Dialog.Cancel
 
-//    onAccepted:{
-////        this.result =
-//    }
+    //    onAccepted:{
+    ////        this.result =
+    //    }
     onRejected: {
         this.close();
     }

@@ -33,7 +33,8 @@ Window {
 //            model:getter.getDimensions()
 //        }
         onAccepted: {
-            board.model.changeBoard(createDial.size);
+//            board.model.changeBoard(createDial.size);
+            board.model = getter.changeBoard(createDial.size);
 //            board.model.clear();
         }
         Component.onCompleted: {
