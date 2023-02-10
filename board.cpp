@@ -52,11 +52,13 @@ int Board::forward()
 std::set<int> Board::getActiveCells() const
 {
     std::set<int> cells;
-    for(int i=0;i<m_availableStepsCount; i++){
-        cells.insert(getIndexFromXY(m_availableSteps[i][0], m_availableSteps[i][1]));
-    }
-    if(m_historyLength>1){
-        cells.insert(getIndexFromXY(history[m_historyLength-1][0], history[m_historyLength-1][1]));
+    if(m_historyLength != 0){
+        for(int i=0;i<m_availableStepsCount; i++){
+            cells.insert(getIndexFromXY(m_availableSteps[i][0], m_availableSteps[i][1]));
+        }
+        if(m_historyLength>1){
+            cells.insert(getIndexFromXY(history[m_historyLength-1][0], history[m_historyLength-1][1]));
+        }
     }
 
     return cells;
@@ -100,11 +102,11 @@ Board::Board() : Board(defaultSize){}
 
 Board::Board(int n)
     : m_size(n),
-    m_cellsCount(m_size*m_size),
-    m_currentNumber(defaultCurrentNumber),
-    m_availableStepsCount(defaultAvailableStepsCount),
-    m_historyLength(defaultHistoryLength),
-    m_maxHistoryLength(defaultMaxHistoryLength)
+      m_cellsCount(m_size*m_size),
+      m_currentNumber(defaultCurrentNumber),
+      m_availableStepsCount(defaultAvailableStepsCount),
+      m_historyLength(defaultHistoryLength),
+      m_maxHistoryLength(defaultMaxHistoryLength)
 {
     field = new int*[m_size];
     history = new int*[m_cellsCount];
