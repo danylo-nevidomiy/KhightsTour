@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <iostream>
+#include <set>
 
 
 
@@ -22,20 +23,20 @@ class Board
     int m_currentNumber;
     int m_availableSteps[8][2];
     int m_availableStepsCount;
-    std::pair<int, int> getXYFromIdex(int n) const;
+    std::pair<int, int> getXYFromIndex(int n) const;
     int getIndexFromXY(int x, int y) const;
     int **history;
     int m_historyLength;
     int m_maxHistoryLength;
     void setAvailableSteps(int i, int x, int y);
     void setHistoryStep(int x, int y);
+    bool isOnField(std::pair<int, int> point);
+    bool isCellFree(std::pair<int, int> point);
+    void findSteps(std::pair<int, int> point);
 public:
     Board();
     Board(int n);
     virtual ~Board();
-    bool isOnField(std::pair<int, int> point);
-    bool isCellFree(std::pair<int, int> point);
-    void getSteps(std::pair<int, int> point);
 
     int size() const;
     void setSize(int newSize);
@@ -47,6 +48,7 @@ public:
     void setCellsCount(int newCellsCount);
     int back();
     int forward();
+    std::set<int> getActiveCells() const;
 
 };
 

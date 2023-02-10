@@ -12,13 +12,12 @@ ToursAgregator *AgregatorGetter::getBoard()
 
 DimensionsList *AgregatorGetter::getDimensions()
 {
-    qDebug() << "*AgregatorGetter::getDimensions()";
     return &list;
 }
 
 ToursAgregator *AgregatorGetter::changeBoard(int n)
 {
-    delete agregator;
+//    delete agregator;
     agregator = new ToursAgregator(n);
     return agregator;
 }

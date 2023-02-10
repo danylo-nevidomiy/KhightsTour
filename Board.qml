@@ -17,6 +17,8 @@ GridView{
 
 
         Cell{
+            id:cell
+            property int ind: index
             anchors.fill: _backgroundDelegate
 //            anchors.margins: 5
             color: (Math.floor(index/board.model.size()) + index%board.model.size()) % 2 ? "#90652C" : "#DEB887"
@@ -26,8 +28,20 @@ GridView{
                 anchors.fill: parent
                 onClicked: {
                     board.model.step(index);
+//                    cell.color = "red";
                 }
             }
+            Connections{
+                target: board.model
+                function onHighlightedCellsChanged(){
+                    if(board.model.isHighlighted(cell.ind)){
+                        cell.color = "red";
+                    }else{
+                        cell.color = (Math.floor(index/board.model.size()) + index%board.model.size()) % 2 ? "#90652C" : "#DEB887";
+                    }
+                }
+            }
+
 //            height: board.cellHeight
 //            width: board.cellWidth
             //        size: board.width<board.height ? board.width/5 : board.height/5

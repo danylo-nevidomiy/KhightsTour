@@ -30,7 +30,7 @@ int Board::back()
     } else if(m_historyLength>1){
         m_historyLength--;
         field[history[m_historyLength][0]][history[m_historyLength][1]] = 0;
-        getSteps(std::make_pair(history[m_historyLength-1][0], history[m_historyLength-1][1]));
+        findSteps(std::make_pair(history[m_historyLength-1][0], history[m_historyLength-1][1]));
         m_currentNumber--;
         return getIndexFromXY(history[m_historyLength][0], history[m_historyLength][1]);
     }
@@ -42,14 +42,27 @@ int Board::forward()
 
     if(m_maxHistoryLength > m_historyLength){
         field[history[m_historyLength][0]][history[m_historyLength][1]] = m_currentNumber++;
-        getSteps(std::make_pair(history[m_historyLength][0], history[m_historyLength][1]));
+        findSteps(std::make_pair(history[m_historyLength][0], history[m_historyLength][1]));
         m_historyLength++;
         return getIndexFromXY(history[m_historyLength-1][0], history[m_historyLength-1][1]);
     }
     return noCellsChanged;
 }
 
-std::pair<int, int> Board::getXYFromIdex(int n) const
+std::set<int> Board::getActiveCells() const
+{
+    std::set<int> cells;
+    for(int i=0;i<m_availableStepsCount; i++){
+        cells.insert(getIndexFromXY(m_availableSteps[i][0], m_availableSteps[i][1]));
+    }
+    if(m_historyLength>1){
+        cells.insert(getIndexFromXY(history[m_historyLength-1][0], history[m_historyLength-1][1]));
+    }
+
+    return cells;
+}
+
+std::pair<int, int> Board::getXYFromIndex(int n) const
 {
     return std::make_pair(n/m_size, n%m_size);
 }
@@ -131,7 +144,7 @@ bool Board::isCellFree(std::pair<int, int> point)
     return true;
 }
 
-void Board::getSteps(std::pair<int, int> point)
+void Board::findSteps(std::pair<int, int> point)
 {
     constexpr int directions[8][2] = {{2,1}, {2, -1}, {1,-2}, {-1, -2}, {-2,-1}, {-2, 1}, {-1,2}, {1, 2}};
     m_availableStepsCount = 0;
@@ -156,11 +169,11 @@ void Board::setSize(int newSize)
 
 bool Board::takeStep(int n)
 {
-    auto x = getXYFromIdex(n);
+    auto x = getXYFromIndex(n);
     if(currentNumber() == 1){
         setHistoryStep(x.first, x.second);
         field[x.first][x.second] = m_currentNumber++;
-        getSteps(x);
+        findSteps(x);
         return false;
     }else{
         for(int i=0;i<m_availableStepsCount;i++){
@@ -168,9 +181,10 @@ bool Board::takeStep(int n)
                 setHistoryStep(x.first, x.second);
                 field[x.first][x.second] = m_currentNumber++;
                 if(currentNumber() > m_cellsCount){
+                    m_availableStepsCount = 0;
                     return true;
                 }
-                getSteps(x);
+                findSteps(x);
                 return false;
             }
         }
@@ -180,7 +194,7 @@ bool Board::takeStep(int n)
 
 int Board::getCell(int n) const
 {
-    auto i = getXYFromIdex(n);
+    auto i = getXYFromIndex(n);
     return field[i.first][i.second];
 }
 

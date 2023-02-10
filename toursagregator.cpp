@@ -18,6 +18,8 @@ void ToursAgregator::step(int index)
     if(board->takeStep(index)){
         emit victory();
     }
+    highlightedCells = board->getActiveCells();
+    emit highlightedCellsChanged();
     emit dataChanged(createIndex(index, 0), createIndex(index, 0));
 }
 
@@ -25,25 +27,16 @@ void ToursAgregator::clear()
 {
     delete board;
     board = new Board();
-    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
-}
 
-void ToursAgregator::changeBoard(int n)
-{
-    qDebug() << "ToursAgregator::changeBoard() = " << n;
-    delete board;
-    board = new Board(n);
-    qDebug() << "size = " << board->size();
-    qDebug() << "count = " << board->cellsCount();
-    QModelIndex topLeft = createIndex(0,0);
-    QModelIndex bottomRight = createIndex(board->cellsCount() ,0);
-    emit dataChanged(index(0), index(0));
+    emit dataChanged(createIndex(0, 0), createIndex(board->cellsCount(), 0));
 }
 
 void ToursAgregator::forward()
 {
     int update = board->forward();
     if(update > -1){
+        highlightedCells = board->getActiveCells();
+        emit highlightedCellsChanged();
         emit dataChanged(createIndex(update, 0), createIndex(update, 0));
     }
 
@@ -53,8 +46,19 @@ void ToursAgregator::back()
 {
     int update = board->back();
     if(update > -1){
+        highlightedCells = board->getActiveCells();
+        emit highlightedCellsChanged();
         emit dataChanged(createIndex(update, 0), createIndex(update, 0));
     }
+}
+
+bool ToursAgregator::isHighlighted(int n) const
+{
+    if(highlightedCells.find(n) != highlightedCells.end())
+    {
+        return true;
+    }
+    return false;
 }
 
 int ToursAgregator::rowCount(const QModelIndex &parent) const
@@ -68,7 +72,6 @@ QVariant ToursAgregator::data(const QModelIndex &index, int role) const
     if (!index.isValid() || role != Qt::DisplayRole) {
         return {};
     }
-//    qDebug() << "TOUR: index.row() = " << index.row();
     int n = board->getCell(index.row());
     if(n == 0){
         return QVariant(" ");
@@ -95,10 +98,13 @@ int ToursAgregator::getResultsCount() const
     return 0;
 }
 
-int ToursAgregator::getResultsValueAt(const int index) const
-{
-    return currentResult.at(index);
-}
+//int ToursAgregator::getResultsValueAt(const int index) const
+//{
+//    if(highlightedCells.find(index) != highlightedCells.end()){
+//        return
+//    }
+//    return highlightedCells.at(index);
+//}
 
 int ToursAgregator::nextResult()
 {
@@ -192,4 +198,6 @@ void ToursAgregator::updateCurrentStates()
     }else{
         emit hasPrevResultChanged(false);
     }
+    qDebug() << "updateCurrentStates";
+
 }

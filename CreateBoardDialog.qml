@@ -34,7 +34,6 @@ Dialog {
                     id: mitem
                     text: model.text
                     onTriggered: {
-                        console.log(model.text);
                         dial.size = model.text
                         menu.title = model.text
                     }

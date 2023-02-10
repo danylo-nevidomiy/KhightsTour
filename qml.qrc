@@ -1,13 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Controller.js</file>
         <file>Board.qml</file>
         <file>Cell.qml</file>
         <file>CustomButton.qml</file>
         <file>InfoField.qml</file>
-        <file>VictoryDialog.qml</file>
+        <file>InfoDialog.qml</file>
         <file>CreateBoardDialog.qml</file>
         <file>MenuModel.qml</file>
+        <file>icon.jpg</file>
     </qresource>
 </RCC>
